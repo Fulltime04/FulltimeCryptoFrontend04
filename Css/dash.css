@@ -1,0 +1,807 @@
+.dashboard_wrapper{
+    width: 100%;
+    height: 100%;
+    min-height: fit-content;
+    text-align: center;
+    /*border: 1px solid white;*/
+}
+
+.dash_header{
+    width: 100%;
+    height: 80px;
+    border-bottom: 1px solid gray;
+    border-radius: .3rem;
+    display: flex;
+    gap: .3em;
+
+}
+
+.welcome_text_wrapper{
+    width: 60%;
+    height: 100%;
+    padding: .3rem;
+    /*border: 1px solid gray;*/
+}
+#welcome_text{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+#welcome_text h2{
+    width: 100%;
+    color: white;
+    font-size: 1.8rem;
+
+}
+#welcome_text p{
+    width: 100%;
+    color: gold;
+    font-size: .9em;
+    position: absolute;
+    text-align: center;
+
+}
+.animate{
+    animation: slideText 5s ease-in-out;
+}
+
+@keyframes slideText {
+    0% {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    20% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    80% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+}
+
+.dash_butts_wrapper{
+    width: 40%;
+    height: 100%;
+    /*border: 1px solid gray;*/
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: .3rem;
+}
+
+.not{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2em;
+}
+
+
+.user{
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px solid gold;
+    overflow: hidden;
+}
+
+.user img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.transactions_wrapper{
+    width: 100%;
+    height: 50px;
+    /*border-top: 1px solid gray;*/
+    /*border-bottom: 1px solid gray;*/
+    /*border-left: 1px solid gray;*/
+    /*border-right: 1px solid gray;*/
+    margin: .4rem auto;
+    padding: .4rem 1rem;
+}
+
+.transactions_container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+/*-----------------------------------*/
+.balance_wrapper{
+    width: 100%;
+    height: 250px;
+    /*background: rgb(59 59 59 / 0.57);*/
+    /*border: 1px solid gray;*/
+    border-radius: .3rem;
+    margin: .8rem auto;
+}
+
+.balance_container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 1rem;
+}
+
+.main_balance_wrapper{
+    width: 68%;
+    height: 100%;
+    background: rgb(59 59 59 / 0.57);
+    border-radius: .5rem;
+    padding: 1rem;
+}
+
+.main_balance_container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+    /*border: 1px solid white;*/
+}
+
+.CurrBal_wrapper{
+    width: 70%;
+    height: 100%;
+    /*border: 1px solid white;*/
+}
+.main_current_container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.sameCurr{
+    width: 100%;
+    height: 60%;
+    /*border: 1px solid gold;*/
+}
+.Expenses_wrapper{
+    h2{
+        font-size: 1.2rem;
+
+    }
+    h3{
+        margin-top: 1rem;
+        color: red;
+    }
+}
+.Income_wrapper{
+    h2{
+        font-size: 1.2rem;
+    }
+
+    h3{
+        margin-top: 1rem;
+        color: green;
+    }
+}
+
+
+.current_balance{
+    height: 40%;
+    h2{
+        font-size: 1.8rem;
+        color: white;
+    }
+
+    h3{
+        font-size: 1.5rem;
+        color: white;
+        margin-top: .7rem;
+    }
+}
+
+.income_expenses{
+    display: flex;
+    justify-content: space-around;
+}
+
+.CurrBal_Img_Wrapper{
+    width: 30%;
+    height: 100%;
+    border: 1px solid gray;
+    border-radius: .3rem;
+    overflow: hidden;
+
+    img{
+
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
+/*---------------------------------*/
+.coins_exchange_wrapper{
+    width: 32%;
+    height: 100%;
+    /*border: 1px solid gray;*/
+    background: linear-gradient(160deg, rgb(0 0 0 / 0.63), rgb(0 0 0 / 0.58)), url("/asset/img/download 2.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    align-content: center;
+    border-radius: .5rem;
+    /*background-attachment: fixed;*/
+}
+.coins_exchange_container{
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    /*box-shadow: 2px 2px 3px rgb(128 128 128 / 0.59);*/
+    justify-self: center;
+    border: 1px solid gray;
+    backdrop-filter: blur(15px);
+    background: linear-gradient(rgb(14 13 10 / 0.32), rgb(255 215 0 / 0.56));
+    border-radius: .5rem;
+}
+
+.coins_Exhange_name{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    /*background: black;*/
+    justify-content: space-around;
+    padding: .3rem;
+    gap: .5rem;
+    h2{
+        font-size: 1.6rem;
+    }
+
+
+}
+
+#exchange_icon{
+    /*background: black;*/
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    font-size: 1rem;
+    cursor: pointer;
+    height: 100%;
+}
+
+.main_exchange_container{
+    width: 100%;
+    height: 80%;
+    border-top: 1px solid gray;
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: .5rem;
+}
+
+.same{
+    width: 100%;
+    height: calc(100% / 3);
+    background: rgb(0 0 0 / 0.63);
+    backdrop-filter: blur(15px);
+    /*border-radius: .5rem;*/
+}
+.same:first-child{
+    border-radius: .5rem;
+    flex-basis: 25%;
+    background: rgb(0 0 0 / 0.91);
+}
+
+.fromto{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: .4rem;
+    padding: .3rem;
+
+
+    input{
+        width: 50%;
+        height: 70%;
+        background: rgb(0 0 0 / 0.64);
+        text-indent: .5rem;
+        border: none;
+        border-bottom: 1px solid gray;
+        outline: none;
+        color: white;
+        font-size: .8rem;
+        border-radius: .5rem;
+    }
+
+    select{
+        width: 50%;
+        height: 70%;
+        background: black;
+        border: none;
+        outline: none;
+        color: white;
+        padding: .3rem;
+        cursor: pointer;
+        font-size: .8rem;
+        border-radius: .2rem;
+    }
+}
+
+.modalbox{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(15px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.del_modal{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    position: absolute;
+    right: 50px;
+    top: 30px;
+}
+
+#transactionModal{
+    width: 60%;
+    height: 50%;
+    border: 1px solid gray;
+    border-radius: .4rem;
+}
+
+.modal-content{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+}
+
+#modalTitle{
+    font-size: 2.5rem;
+    color: gold;
+    height: 20%;
+    /*padding: 1rem;*/
+}
+
+#transactionForm{
+    height: 80%;
+    width: 100%;
+    /*border: 1px solid gray;*/
+}
+#formFields{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    /*border: 1px solid gray;*/
+
+}
+.sell_buy_same{
+    width: 80%;
+    height: 50%;
+    background: rgb(0 0 0 / 0.77);
+    text-indent: .5rem;
+    border: 1px solid gray;
+    outline: none;
+    font-size: 1rem;
+    border-radius: .5rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.sell_buy_same2{
+    height: 40%;
+}
+
+.form_btn_wrapper{
+    height: 50%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: .8rem;
+
+    button{
+        height: 50px;
+        width: fit-content;
+    }
+}
+
+.coins{
+    width: 35%;
+    height: 80%;
+    background: black;
+    border: 1px solid gray;
+    color: white;
+    padding: .5rem;
+    cursor: pointer;
+    outline: none;
+    font-size: 1rem;
+}
+
+.inpt_Same{
+    width: 80%;
+    height: 50%;
+    background: rgb(0 0 0 / 0.63);
+    color: white;
+    text-indent: .5rem;
+    border: 1px solid gray;
+    outline: none;
+    font-size: 1rem;
+    border-radius: .5rem;
+}
+
+.select_coin_logo{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+
+img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.chart_days_wrapper{
+    width: 100%;
+    height: 500px;
+    /*border: 2px solid white;*/
+}
+
+.chart_days_container{
+    width: 100%;
+    height: 100%;
+    /*border: 1px solid white;*/
+    display: flex;
+}
+
+.main_chart_days_wrapper{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    /*border: 1px solid red;*/
+}
+.chart-wrapper{
+    width: 100%;
+    /*background:#121212;*/
+    padding:24px;
+    border-radius:20px;
+    height: 70%;
+    box-shadow:
+            0 0 30px rgba(0,0,0,.3);
+}
+
+.chart_days_head{
+    width: 100%;
+    height: 30%;
+    /*border: 1px solid gray;*/
+
+}
+#overallChart{
+    width: 100%;
+    height: 100%;
+}
+.first_head{
+    height: 50%;
+    width: 100%;
+    border-bottom: 1px solid gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.7em;
+    font-weight: 650;
+    color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background: linear-gradient(145deg,white,gold);
+    background-clip: text;
+
+}
+.second_head{
+    height: 50%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .3rem;
+    border-bottom: 1px solid gray;
+}
+
+.chart_btn_wrapper{
+    width: 25%;
+    height: 100%;
+    /*border: 2px solid red;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.periods{
+    width: 75%;
+    height: 100%;
+    /*border: 1px solid gold;*/
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    button{
+        font-size: .9rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.chart-coins{
+    width: 90%;
+    height: 90%;
+    /*border: 1px solid white;*/
+}
+
+.chart-coins{
+    width: 80%;
+    height: 60%;
+    /*border: 1px solid gold;*/
+    padding: .5rem;
+    background: black;
+    font-size: .7rem;
+    color: gold;
+    cursor: pointer;
+    text-transform: capitalize;
+    border-radius: .5rem;
+}
+
+.active{
+    background-color: gold;
+    color: black;
+}
+
+.currency_converter_wrapper{
+    width: 35%;
+    height: 100%;
+    border: 1px solid gray;
+    background: linear-gradient(rgb(0 0 0 / 0.34), rgb(0 0 0 / 0.35)), url("/asset/img/download (3).jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.currency_converter_container{
+    width: 100%;
+    height: 100%;
+    /*border: 1px solid green;*/
+    backdrop-filter: blur(12px);
+    background: rgb(0 0 0 / 0.37);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.main_currency_wrapper_container{
+    width: 88%;
+    height: 90%;
+    border: 1px solid gray;
+    border-radius: .8rem;
+    box-shadow: 3px 3px 30px rgb(255 255 255 / 0.39);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.currency_header{
+    width: 100%;
+    height: 20%;
+    border-bottom: 1px solid gray;
+    padding-top: .5rem;
+
+    h1{
+        font-size: 2.1rem;
+        font-weight: 650;
+        color: transparent;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background: linear-gradient(145deg,white,gold);
+        background-clip: text;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+
+        p{
+            display: flex;
+            gap: .3rem;
+            font-size: 1.7rem;
+        }
+        span{
+            /*font-size: 1.5rem;*/
+        }
+    }
+}
+.currency_body{
+    width: 100%;
+    height: 80%;
+    /*border: 1px solid red;*/
+}
+
+.currency_body_container{
+    width: 100%;
+    height: 100%;
+    /*border: 1px solid gray;*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .7rem;
+}
+
+.currency_result{
+    width: 95%;
+    height: 20%;
+    background: rgb(255 255 255 / 0.15);
+    border-radius: .4rem;
+}
+
+
+.currency_btn_wrapper{
+    width: 95%;
+    height: 20%;
+    /*border: 1px solid gray;*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.currency_btn_input_wrapper{
+    width: 100%;
+    height: 100%;
+    /*border: 1px solid green;*/
+    padding: 0 .3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+
+    input{
+        width: 60%;
+        height: 60%;
+        background: rgb(0 0 0 / 0.13);
+        border: 1px solid gray;
+        border-radius: 5px;
+        color: white;
+        font-size: 1rem;
+        font-weight: 500;
+        text-indent: .5rem;
+        outline: none;
+        cursor: pointer;
+    }
+
+    button{
+        width: 40%;
+        height: 55%;
+        border: 1px solid gray;
+        border-radius: .8rem;
+        font-size: .8rem;
+        display: flex;
+        gap: .4rem;
+    }
+}
+
+.currency_selection{
+    width: 100%;
+    height: 50%;
+    /*border: 1px solid gray;*/
+}
+
+.currency_selection_container{
+    width: 100%;
+    height: 100%;
+    /*border: 1px solid gray;*/
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    padding: .5rem;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.currency_from_wrapper{
+    width: 100%;
+    height: 50%;
+    background: black;
+    display: flex;
+}
+
+.currency_to_wrapper{
+    width: 100%;
+    height: 50%;
+    background: black;
+    display: flex;
+}
+
+.currency_img_wrapper{
+    width: 35%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.currency_img_container{
+    width: 60%;
+    height: 75%;
+
+
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+
+    }
+}
+
+.currency_selection_symbols_wrapper{
+    width: 65%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.currency_selection_symbols{
+    width: 90%;
+    height: 60%;
+    border: 1px solid gray;
+    color: white;
+    background: black;
+    cursor: pointer;
+    padding: 0 .5rem;
+    border-radius: .1rem;
+    outline: none;
+}
+
+

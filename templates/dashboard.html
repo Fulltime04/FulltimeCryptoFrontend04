@@ -1,1 +1,191 @@
-<h1>Thank You Jesus</h1>
+<main class="dashboard_wrapper">
+    <section class="dash_header">
+        <div class="welcome_text_wrapper">
+            <div id="welcome_text">
+                <h2></h2>
+                <p></p>
+            </div>
+        </div>
+
+        <div class="dash_butts_wrapper">
+            <button class="reset_wallet">Reset Wallet</button>
+            <button class="not">
+                <i class="fa-solid fa-bell"></i>
+            </button>
+
+            <button class="not">
+                <i class="fa-solid fa-wallet"></i>
+            </button>
+
+            <div class="user">
+                <img src="asset/img/logo.jpg" alt="">
+            </div>
+        </div>
+    </section>
+
+    <section class="transactions_wrapper">
+        <div class="transactions_container">
+            <button data-type="deposit" class="Tran_btn deposit_btn">Deposit Cash</button>
+            <button data-type="buy" class="Tran_btn sell_btn">Buy Coins</button>
+            <button data-type="sell" class="Tran_btn buy_btn">Sell Coins</button>
+            <button data-type="withdraw" class="Tran_btn withdraw_btn">Withdraw Cash</button>
+        </div>
+    </section>
+
+
+    <section class="balance_wrapper">
+        <div class="balance_container">
+            <div class="main_balance_wrapper">
+                <div class="main_balance_container">
+                <div class="CurrBal_wrapper">
+                    <div class="main_current_container">
+                        <nav class="sameCurr current_balance">
+                            <h2><i class="fa-solid fa-wallet"></i> Current Balance</h2>
+                            <h3 class="balance">$600000000</h3>
+                        </nav>
+                        <nav class="sameCurr income_expenses">
+                            <div class="Income_wrapper">
+                                <i style="color: green; font-size: 1.3rem" class="fa-solid fa-arrow-trend-up"></i>
+                                <h2>
+                                    Income (Profit)
+                                </h2>
+                                <h3>$1000000000</h3>
+                            </div>
+                            <div class="Expenses_wrapper">
+                                <i style="color: red; font-size: 1.3rem" class="fa-solid fa-arrow-trend-down"></i>
+                                <h2>
+                                    Expenses (Loss)
+                                </h2>
+                                <h3>$80000000</h3>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <div class="CurrBal_Img_Wrapper">
+                    <img src="/asset/img/download%20(4).jpg" alt="">
+                </div>
+                </div>
+            </div>
+            <div class="coins_exchange_wrapper">
+                <div class="coins_exchange_container">
+                    <nav class="coins_Exhange_name">
+                        <h2>Coins Exchange </h2>
+                        <button id="exchange_icon"><i class="fa-solid fa-arrows-rotate"></i></button>
+                    </nav>
+
+                    <div class="main_exchange_container">
+                        <nav class="same result_wrapper"></nav>
+                        <nav class="same fromto from_wrapper">
+                            <input id="fromCoin" class="from_input" placeholder="Enter your Amount">
+
+                            <select class="fromto_select">
+
+                            </select>
+                        </nav>
+                        <nav class="same fromto to_wrapper">
+                            <input id="toCoin" class="to_input" placeholder="PRICE">
+
+                            <select class="fromto_select">
+
+                            </select>
+                        </nav>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="chart_days_wrapper">
+            <div class="chart_days_container">
+                    <div class="main_chart_days_wrapper">
+                        <header class="chart_days_head">
+                            <section class="first_head">
+                                <h2>OVERALL CHART</h2>
+                            </section>
+                            <section class="second_head">
+                                <div class="chart_btn_wrapper">
+                                    <select class="chart-coins">
+
+                                    </select>
+                                </div>
+                                <div class="periods">
+                                    <button data-days="1">Daily</button>
+                                    <button data-days="7">Weekly</button>
+                                    <button data-days="30">Monthly</button>
+                                    <button data-days="365">Yearly</button>
+                                </div>
+                            </section>
+
+                        </header>
+
+                        <main class="chart-wrapper">
+                            <canvas id="overallChart"></canvas>
+                        </main>
+                    </div>
+
+
+                    <div class="currency_converter_wrapper">
+                        <div class="currency_converter_container">
+                                <div class="main_currency_wrapper_container">
+                                    <header class="currency_header">
+                                        <h1>
+                                            <i class="fa-solid fa-money-bill-transfer"></i>
+                                            <p>Currency<span>Converter</span></p>
+                                        </h1>
+                                    </header>
+                                        <main class="currency_body">
+                                            <div class="currency_body_container">
+                                                <nav class="currency_result"></nav>
+
+                                                <nav class="currency_btn_wrapper">
+                                                    <div class="currency_btn_input_wrapper">
+                                                        <input placeholder="Enter Amount" type="number" class="currency_amount">
+                                                        <button class="currency_btn">Convert <i class="fa-solid fa-chart-line"></i></button>
+                                                    </div>
+                                                </nav>
+
+                                                <nav class="currency_selection">
+                                                    <main class="currency_selection_container">
+                                                        <div class="currency_from_wrapper">
+                                                            <div class="currency_img_wrapper">
+                                                                <nav class="currency_img_container">
+<!--                                                                    <img class="currency_image">-->
+                                                                </nav>
+                                                            </div>
+
+                                                            <div class="currency_selection_symbols_wrapper">
+                                                                <select id="currency_from" class="currency_selection_symbols">
+                                                                    <option value="NGN">Nigerian Naira</option>
+                                                                </select>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="currency_to_wrapper">
+                                                            <div class="currency_img_wrapper">
+                                                                <nav class="currency_img_container">
+
+                                                                </nav>
+                                                            </div>
+
+                                                            <div class="currency_selection_symbols_wrapper">
+                                                                <select id="currency_to" class="currency_selection_symbols">
+                                                                    <option value="NGN">Nigerian Naira</option>
+                                                                </select>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </main>
+                                                </nav>
+                                            </div>
+                                        </main>
+
+                                </div>
+                        </div>
+                    </div>
+            </div>
+    </section>
+</main>
