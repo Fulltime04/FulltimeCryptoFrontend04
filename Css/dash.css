@@ -77,7 +77,9 @@
     align-items: center;
     justify-content: space-evenly;
     padding: .3rem;
+    position: relative;
 }
+
 
 .not{
     width: 45px;
@@ -146,6 +148,7 @@
     background: rgb(59 59 59 / 0.57);
     border-radius: .5rem;
     padding: 1rem;
+    border: 1px solid rgb(128 128 128 / 0.61);
 }
 
 .main_balance_container{
@@ -342,7 +345,7 @@
     position: absolute;
     top: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(15px);
     display: flex;
@@ -369,12 +372,17 @@
     border: 1px solid gray;
     border-radius: .4rem;
 }
+.transaction_H_inc{
+    height: 55% !important;
+    /*border: 1px solid red !important;*/
+}
 
 .modal-content{
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     align-items: center;
     padding: 1rem;
 }
@@ -393,21 +401,28 @@
 }
 #formFields{
     width: 100%;
-    height: 50%;
+    height: 60%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 1rem;
     /*border: 1px solid gray;*/
+}
+.live_price{
+    height: 10%;
+    font-size: 1rem;
+    color: gold;
+    /*background: black;*/
 
 }
+
 .sell_buy_same{
     width: 80%;
     height: 50%;
     background: rgb(0 0 0 / 0.77);
     text-indent: .5rem;
-    border: 1px solid gray;
+    /*border: 1px solid gray;*/
     outline: none;
     font-size: 1rem;
     border-radius: .5rem;
@@ -417,17 +432,73 @@
     justify-content: space-evenly;
 }
 .sell_buy_same2{
-    height: 40%;
+    /*height: 52%;*/
+    /*border: 1px solid red;*/
 }
 
-.form_btn_wrapper{
-    height: 50%;
+.quantity_wrapper{
+    width: 85%;
+    height: 40%;
+    border: 1px solid gray;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: .5rem .2rem;
+    gap: .5rem;
+}
+.Calc_{
+    width: 65%;
+    height: 100%;
+    color: white;
+    background: rgb(0 0 0 / 0.63);
+    font-size: 1.2rem;
+    padding: .3rem .5rem;
+    border-radius: .5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .6rem;
+}
+
+.col_price{
+    color: greenyellow;
+}
+
+.input_small{
+    width: 35%;
+    height: 100%;
+    background: rgb(0 0 0 / 0.63);
+    color: white;
+    text-indent: .5rem;
+    border: 1px solid gray;
+    outline: none;
+    font-size: 1rem;
+    border-radius: .5rem;
+}
+.form_btn_wrapper2{
+    height: 30%;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
     padding: .8rem;
+    /*border: 1px solid gray;*/
+
+    button{
+        height: 50px;
+        width: fit-content;
+    }
+}
+.form_btn_wrapper{
+    height: 45%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: .8rem;
+    /*border: 1px solid gray;*/
 
     button{
         height: 50px;
@@ -508,6 +579,27 @@ img{
     height: 70%;
     box-shadow:
             0 0 30px rgba(0,0,0,.3);
+}
+.chart-wrapper_error{
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+
+}
+.chart_wrapper_error_div{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: red;
+    z-index: 2;
+    background: black;
+    border: 1px solid gray;
+    border-radius: .5rem;
 }
 
 .chart_days_head{
@@ -805,3 +897,310 @@ img{
 }
 
 
+.Popular_Trending_Coins_Wrapper{
+    width: 100%;
+    height: 600px;
+    display: flex;
+    min-height: fit-content;
+    /*border: 1px solid white;*/
+    margin: 2rem auto;
+    padding-bottom: 1rem;
+}
+
+.pop_trend_header{
+    width: 100%;
+    height: 15%;
+    /*border: 1px solid gray;*/
+}
+
+.pop_trend_body{
+    width: 100%;
+    height: 85%;
+    align-content: center;
+    min-height: fit-content;
+    /*border: 1px solid gray;*/
+}
+
+.pop_trend_header_container{
+    width: 100%;
+    height: 100%;
+    /*border: 1px solid red;*/
+    display: flex;
+}
+.Popular_Trending_Coins_container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: fit-content;
+}
+
+.pop_header_name{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 .6rem;
+    border-top: 1px solid gray;
+
+    h1{
+        font-size: 2.2rem;
+        color: transparent;
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+        background: linear-gradient(145deg,white,gold);
+        background-clip: text;
+        text-transform: capitalize;
+    }
+}
+
+.pop_trend_btn_wrapper{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .8rem;
+
+    button{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: .6rem;
+    }
+}
+
+.main_pop_trend_container{
+    height: 100%;
+    width: 100%;
+    justify-self: center;
+    /*border: 1px solid gray;*/
+    border-radius: .8rem;
+    min-height: fit-content;
+}
+.griding{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
+    gap: .5rem;
+}
+
+.grids_coins{
+    width: 245px;
+    height: 200px;
+    background: rgb(59 59 59 / 0.57);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: .8rem;
+    border: 1px solid gray;
+    border-radius: .8rem;
+}
+
+.coin_header{
+    width: 100%;
+    display: flex;
+    gap: .5rem;
+}
+
+.coin_header{
+    img{
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        border: 1px solid gray;
+        object-fit: cover;
+    }
+
+    div{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+.coin_change{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .5rem;
+    padding: .1rem;
+    border-radius: .2rem;
+}
+.sparkline{
+    width: 100px;
+    height: 50px;
+}
+
+.myMain_Notification_wrapper{
+    width: 95%;
+    height: 450px;
+    border: 1px solid rgb(128 128 128 / 0.61);
+    border-radius: .5rem;
+    position: absolute;
+    bottom: -28rem;
+    right: 0;
+    z-index: 2;
+    background: rgb(47 47 47 / 0.48);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+    box-shadow:
+            0 10px 30px rgba(0,0,0,.25),
+            0 0 0 1px rgba(255,255,255,.05);
+
+    color: white;
+
+    opacity: 0;
+    transform: translateY(-20px) scale(.95);
+
+    animation:
+            notificationIn .45s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+
+@keyframes notificationIn{
+    from{
+        opacity: 0;
+        transform: translateY(-20px) scale(.95);
+    }
+
+    to{
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.myMain_Notification_wrapper.hide{
+    animation:
+            notificationOut .35s ease forwards;
+}
+
+@keyframes notificationOut{
+    from{
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+    to{
+        opacity: 0;
+        transform: translateY(-15px) scale(.97);
+    }
+}
+
+.myMain_Notification_header{
+    width: 100%;
+    height: 15%;
+    padding: .4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid gray;
+    /*background: rgb(0 0 0 / 0.91);*/
+    /*border-bottom-left-radius: .5rem;*/
+    /*border-bottom-right-radius: .5rem;*/
+}
+
+.notification_head{
+    width: 80%;
+    height: 100%;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: white;
+
+}
+
+.clear_notification_BTN{
+    padding: .4rem .6rem;
+    font-size: .8rem;
+}
+
+.myMain_Notification_body{
+    width: 100%;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: .4rem;
+
+
+    /*border: 1px solid green;*/
+}
+.main_Notifications_Container{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: .4rem;
+    padding: .4rem;
+
+    /*border: 1px solid white;*/
+}
+
+.Each_notifications_container{
+    width: 100%;
+    background: rgb(7 6 6 / 0.71);
+    border-radius: .4rem;
+    border: 1px solid rgb(128 128 128 / 0.61);
+    padding: .5rem .4rem;
+}
+
+.notification{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .2rem;
+}
+.icons{
+    padding: .4rem;
+    width: 10%;
+}
+.notification_title_message_wrapper{
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .1rem;
+}
+
+.notification_header{
+    width: 100%;
+    /*border: 1px solid white;*/
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+    h2{
+        color: gold;
+        font-size: 1.1rem;
+    }
+
+    small{
+        color: greenyellow;
+        font-size: .8rem;
+    }
+
+
+}
+
+.notification_message_wrapper{
+    width: 100%;
+    text-align: left;
+    font-size: .9rem;
+    color: white;
+}
