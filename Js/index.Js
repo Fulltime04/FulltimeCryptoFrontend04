@@ -2,6 +2,28 @@ alert("Praise the LORD")
 
 let mylinks = document.querySelectorAll(".mylinks");
 let container = document.querySelector(".page_containers");
+const socket = new WebSocket(
+    "ws://127.0.0.1:8000/ws/crypto/"
+);
+
+socket.onerror = error => {
+    console.error(error);
+};
+
+socket.onclose = () => {
+    console.log("WebSocket Closed");
+};
+
+const protocol =
+    window.location.protocol === "https:"
+        ? "wss"
+        : "ws";
+
+// const socket = new WebSocket(
+//     "ws://127.0.0.1:8000/ws/crypto/"
+// );
+
+
 
 mylinks.forEach(link => {
     link.addEventListener("click", function(e)  {
@@ -81,6 +103,64 @@ window.onload = function() {
 
 
 async function dashboard() {
+    let transactionArr = [];
+    let newnotificationArr = [];
+
+
+    socket.onmessage = event => {
+
+        const data = JSON.parse(
+            event.data
+        );
+
+        console.log("WS:", data);
+
+        switch (data.type) {
+
+            case "wallet_update":
+
+                updateWalletUI(data);
+
+                break;
+
+            case "notification":
+
+                let notification_Counter = document.querySelector(".notification_Counter");
+
+                newnotificationArr.unshift(data.notification);
+
+                console.log("WS:", data.notification_count);
+
+                if(data.notification_count <= 0){
+                    notification_Counter.classList.remove("visible");
+                    return
+                }
+
+                if (data.notification_count && notification_Counter) {
+                    notification_Counter.classList.add("visible");
+                    notification_Counter.textContent = `${Number(data.notification_count)}`
+                }
+
+                break;
+
+            case "transaction":
+                console.log("ws transaction: ", data.transaction)
+                transactionArr.unshift(data.transaction)
+
+                let transactionCounter = document.querySelector(".transactionCounter");
+                let transactionCounter_wrapper =  document.querySelector(".transactionCounter_wrapper");
+
+                if(data.transaction_count <= 0) {
+                    transactionCounter_wrapper.classList.remove("visible");
+                }
+
+                if (transactionCounter) {
+                    transactionCounter_wrapper.classList.add("visible");
+                    transactionCounter.innerHTML = String(data.transaction_count);
+                }
+                break;
+        }
+    };
 
 
     let notification_wrapper = document.querySelector(".dash_butts_wrapper");
@@ -539,8 +619,6 @@ async function dashboard() {
                         Container.classList.add("onScroll")
                     }, 800)
 
-
-                    await Wallet();
                 } else {
                     alert(data.error);
                 }
@@ -552,6 +630,17 @@ async function dashboard() {
         };
     }
 
+    function updateWalletUI(data) {
+
+        document.querySelector(".balance").textContent =
+            `$${Number(data.balance).toLocaleString()}`;
+
+        document.querySelector(".Income_wrapper h3").textContent =
+            `$${Number(data.income).toLocaleString()}`;
+
+        document.querySelector(".Expenses_wrapper h3").textContent =
+            `$${Number(data.expenses).toLocaleString()}`;
+    }
 
     async function Wallet() {
         try {
@@ -560,32 +649,13 @@ async function dashboard() {
             );
 
             const data = await response.json();
+            if (!data.success) return;
 
-            if (!data.success) {
-                console.log(data.error);
-                document.querySelector(".balance").textContent = "$0";
-                document.querySelector(".Income_wrapper h3").textContent = "$0";
-                document.querySelector(".Expenses_wrapper h3").textContent = "$0";
-                return;
-            }
-
-            document.querySelector(".balance").textContent =
-                `$${Number(data.balance).toLocaleString()}`;
-
-            document.querySelector(".Income_wrapper h3").textContent =
-                `$${Number(data.income).toLocaleString()}`;
-
-            document.querySelector(".Expenses_wrapper h3").textContent =
-                `$${Number(data.expenses).toLocaleString()}`;
-
-            console.log(data)
+            updateWalletUI(data);
         } catch (err) {
             console.error(err);
         }
     }
-
-
-    Wallet()
 
 
     async function exhangeCoins(){
@@ -1102,205 +1172,6 @@ async function dashboard() {
     }
 
 
-    const notificationIcons = {
-
-        BUY: [
-            "🟢",
-            "📈",
-            "💹",
-            "🪙"
-        ],
-
-        SELL: [
-            "🔴",
-            "📉",
-            "💸",
-            "💰"
-        ],
-
-        DEPOSIT: [
-            "💵",
-            "🏦",
-            "💳",
-            "📥"
-        ],
-
-        WITHDRAW: [
-            "💸",
-            "📤",
-            "🏧",
-            "💰"
-        ],
-
-        CURRENCY_CONVERTER: [
-            "💱",
-            "🔄",
-            "🌍",
-            "💹"
-        ],
-
-        ALERT: [
-            "🚨",
-            "🔔",
-            "⚠️",
-            "📢"
-        ],
-
-        SYSTEM: [
-            "⚙️",
-            "🛠️",
-            "📡",
-            "🔷"
-        ],
-
-        MESSAGE: [
-            "💬",
-            "📩",
-            "✉️",
-            "📨"
-        ],
-
-        PROFIT: [
-            "🚀",
-            "📈",
-            "💰",
-            "🔥"
-        ],
-
-        LOSS: [
-            "📉",
-            "⚠️",
-            "🔻",
-            "😬"
-        ],
-
-        SECURITY: [
-            "🔒",
-            "🛡️",
-            "🔐",
-            "🚨"
-        ],
-
-        VERIFIED: [
-            "✅",
-            "✔️",
-            "🎉",
-            "🏅"
-        ]
-    };
-
-
-    async function getNotifications() {
-        await fetch("http://127.0.0.1:8000/api/notification/", {
-            method: "GET",
-            headers: {"content-type": "application/json"},
-        }).then(res => res.json()).then(data => {
-                console.log(data);
-            let displaying = displayNotification(data);
-            const container = notification_wrapper.querySelector(".myMain_Notification_body");
-           container.appendChild(displaying);
-        }).catch(err => {
-            console.log(err)
-        })
-    }
-
-    function displayNotification(data) {
-        let mainDiv = document.createElement("main");
-            mainDiv.className = "main_Notifications_Container";
-
-            for(let i = 0; i < data.length; i++) {
-                console.log(data[i].created_at)
-
-                let data_icon = getNotificationsIcon(data[i].type);
-
-                let div = document.createElement("div");
-                div.className = "Each_notifications_container";
-
-                div.innerHTML = `
-                    <div class="notification">
-                        <nav class="icons">
-                            <span class="icon_span">${data_icon}</span>
-                        </nav>
-                        <div class="notification_title_message_wrapper">
-                             <header class="notification_header">
-                                   <h2>${data[i].title}</h2>
-                                   <small>${timeAgo(data[i].created_at)}</small>
-                            </header>
-                            
-                            <main class="notification_message_wrapper">
-                                <p>${data[i].message}</p>
-                            </main>
-                        </div>
-                  </div>
-                `
-
-                mainDiv.appendChild(div);
-            }
-
-            return mainDiv;
-    }
-
-    function getNotificationsIcon(type){
-
-        let icons = notificationIcons[type] || "🛫";
-
-        return icons[
-                Math.floor(Math.random() * icons.length)
-            ];
-    }
-
-    let notification_button = document.querySelector(".not");
-
-    if(notification_button){
-        notification_button.addEventListener("click", async function() {
-
-            main_Notification_Container(this);
-
-
-        })
-    }
-
-    async function main_Notification_Container(ele){
-        let mydiv = document.querySelector(".myMain_Notification_wrapper")
-
-        if(mydiv){
-
-            setTimeout(() => {
-
-                mydiv.classList.add("hide");
-
-                mydiv.addEventListener("animationend", () => {
-                    notification_wrapper.removeChild(mydiv);
-                });
-
-            }, 50);
-
-            if(ele){
-                ele.classList.remove("active");
-            }
-            return;
-        }
-
-        let div = document.createElement("div");
-        div.className = "myMain_Notification_wrapper";
-        div.innerHTML = `
-            <header class="myMain_Notification_header">
-                <nav class="notification_head">
-                    <h2 class="notification_header_Text">🔔 All Notifications</h2>
-                </nav>
-                <button class="clear_notification_BTN">clear</button>
-            </header>   
-            <main class="myMain_Notification_body"></main>   
-        `
-
-
-        notification_wrapper.appendChild(div);
-
-        if(ele){
-            ele.classList.add("active");
-        }
-        await getNotifications();
-    }
 
 
     function timeAgo(dateString) {
@@ -1334,7 +1205,7 @@ async function dashboard() {
                 seconds / intervals.minute
             );
 
-            return `${minutes}min ago`;
+            return `${minutes}mins ago`;
         }
 
         if (seconds < intervals.day) {
@@ -1342,7 +1213,7 @@ async function dashboard() {
                 seconds / intervals.hour
             );
 
-            return `${hours}hour ago`;
+            return `${hours}hrs ago`;
         }
 
         if (seconds < intervals.week) {
@@ -1368,7 +1239,7 @@ async function dashboard() {
                 seconds / intervals.month
             );
 
-            return `${months}month ago`;
+            return `${months}months ago`;
         }
 
         const years = Math.floor(
@@ -1379,16 +1250,14 @@ async function dashboard() {
     }
 
 
-
-
-
-
-
-
     (async function init() {
         document.querySelectorAll("[data-days]")[0].click()
-        updateChart();
+        await updateChart();
         pop_trends_Btn[0].click();
+        await Wallet();
+        await updateNotification_CounterUI();
+        await fetchNotificationCount();
+        await createTransaction()
     })();
 
 
@@ -1398,6 +1267,470 @@ async function dashboard() {
 
 
 
+    /* ==========================
+       FETCH NOTIFICATIONS
+    ========================== */
+    const notificationIcons = {
+
+        BUY: ["🟢", "📈", "💹", "🪙"],
+        SELL: ["🔴", "📉", "💸", "💰"],
+        DEPOSIT: ["💵", "🏦", "💳", "📥"],
+        WITHDRAW: ["💸", "📤", "🏧", "💰"],
+        CURRENCY_CONVERTER: ["💱", "🔄", "🌍", "💹"],
+        ALERT: ["🚨", "🔔", "⚠️", "📢"],
+        SYSTEM: ["⚙️", "🛠️", "📡", "🔷"],
+        MESSAGE: ["💬", "📩", "✉️", "📨"],
+        PROFIT: ["🚀", "📈", "💰", "🔥"],
+        LOSS: ["📉", "⚠️", "🔻", "😬"],
+        SECURITY: ["🔒", "🛡️", "🔐", "🚨"],
+        VERIFIED: ["✅", "✔️", "🎉", "🏅"]
+    };
+
+    async function getNotifications() {
+        const container = document.querySelector(
+            ".myMain_Notification_body"
+        );
+        container.innerHTML = "";
+
+        const response = await fetch(
+            "http://127.0.0.1:8000/api/notification/"
+        );
+
+
+        let data = await response.json();
+
+        if(newnotificationArr.length > 0){
+            data.unshift(newnotificationArr[0]);
+        }
+        console.log("WebSocket", newnotificationArr[0]);
+        console.log("API", data);
+
+        data = [...new Map(data.map(x => [x.id, x])).values()];
+
+        const notifyCont = mainDiv();
+        notifyCont.innerHTML = '';
+
+        console.log(data.map(x => x.id));
+        displayNotification(
+            data,
+            notifyCont
+        );
+
+
+
+        container.appendChild(notifyCont);
+    }
+
+
+    /* ==========================
+       MAIN CONTAINER
+    ========================== */
+
+    function mainDiv() {
+
+        let main = document.createElement("main");
+
+        main.className =
+            "main_Notifications_Container";
+
+
+        return main;
+    }
+
+
+    /* ==========================
+       DISPLAY ALL NOTIFICATIONS
+    ========================== */
+
+    function displayNotification(data, mainContainer) {
+
+        mainContainer.innerHTML = "";
+
+        data.forEach(notification => {
+            let icon = getNotificationsIcon(
+                notification.notification_type
+            );
+
+            let div = document.createElement("div");
+
+            div.className =
+                "Each_notifications_container";
+
+            div.innerHTML = `
+            <div class="notification">
+                <nav class="icons">
+                    <span class="icon_span">
+                        ${notification.icons}
+                    </span>
+                </nav>
+
+                <div class="notification_title_message_wrapper">
+
+                    <header class="notification_header">
+                        <h2>${notification.title}</h2>
+                     <small
+                    class="notification-time"
+                    data-created_at="${notification.created_at}"
+                >
+                    ${
+                notification.created_at
+                    ? timeAgo(notification.created_at)
+                    : "Just now"
+            }
+                </small>
+                    </header>
+
+                    <main class="notification_message_wrapper">
+                        <p>${notification.message}</p>
+                    </main>
+
+                </div>
+            </div>
+        `;
+
+            mainContainer.appendChild(div);
+        });
+    }
+
+
+    function getNotificationsIcon(type) {
+
+        let icons = notificationIcons[type] || ["🛫"];
+
+        return icons[
+            Math.floor(
+                Math.random() * icons.length
+            )
+            ];
+    }
+
+
+    /* ==========================
+       OPEN / CLOSE PANEL
+    ========================== */
+
+    const notification_button =
+        document.querySelector(".notification_button");
+
+    if (notification_button) {
+
+        notification_button.addEventListener(
+            "click",
+            async function () {
+
+                await main_Notification_Container(
+                    this
+                );
+            }
+        );
+    }
+
+    async function main_Notification_Container(ele) {
+
+        let existing = document.querySelector(
+            ".myMain_Notification_wrapper"
+        );
+
+        if (existing) {
+
+            setTimeout(() => {
+
+                existing.classList.add("hide");
+
+                existing.addEventListener(
+                    "animationend",
+                    () => {
+                        notification_wrapper.removeChild(
+                            existing
+                        );
+                    }
+                );
+
+            }, 50);
+
+            if (ele) {
+                ele.classList.remove("active");
+            }
+
+            return;
+        }
+
+        let div = document.createElement("div");
+
+        div.className =
+            "myMain_Notification_wrapper";
+
+        div.innerHTML = `
+        <header class="myMain_Notification_header">
+
+            <nav class="notification_head">
+                <h2 class="notification_header_Text">
+                    🔔 All Notifications
+                </h2>
+            </nav>
+
+            <button class="clear_notification_BTN">
+                clear
+            </button>
+
+        </header>
+
+        <main class="myMain_Notification_body"></main>
+    `;
+
+        notification_wrapper.appendChild(div);
+
+        if (ele) {
+            ele.classList.add("active");
+        }
+
+        await getNotifications();
+    }
+
+
+    function updateTimes() {
+
+        const elements =
+            container.querySelectorAll(
+                ".notification-time"
+            ) || container.querySelectorAll(".footer");
+
+        if (!elements) return;
+
+        elements.forEach(el => {
+
+            const createdAt =
+                el.dataset.created_at;
+
+
+
+            el.textContent = createdAt
+                ? timeAgo(createdAt)
+                : "Just now";
+        });
+    }
+
+    setInterval(updateTimes, 60000);
+
+    async function updateNotification_CounterUI(result) {
+        let notification_btn = document.querySelector(".notification_btn");
+        let div = document.createElement("span");
+        div.className = "notification_Counter";
+
+
+        if (notification_btn.contains(div)) {
+            div.remove();
+        }
+
+        notification_btn.insertAdjacentElement("afterbegin", div);
+    }
+
+
+    async function fetchNotificationCount(){
+        let notification_Counter = document.querySelector(".notification_Counter");
+
+        let data = await fetch("http://127.0.0.1:8000/api/notification_count");
+        let results = await data.json();
+
+        if (results.count <=  0) {
+            notification_Counter.classList.remove("visible");
+            return;
+        }
+
+
+        if (notification_Counter) {
+            notification_Counter.classList.add("visible");
+            notification_Counter.textContent = `${Number(results.count)}`;
+        }
+
+    }
+
+   // ----------------------------------------------
+
+
+    function TransactionTemplate() {
+        let transactDiv = document.createElement("div");
+            transactDiv.className = "transactionDiv";
+            transactDiv.innerHTML = `
+                <main class="transactMainWrapper">
+                    <header class="transactHead">
+                    
+                     <div class="headLeft">
+                        <h3>💳 Transaction History</h3>
+                        <small>View your recent account activity</small>
+                    </div>
+                    
+                    <button class="closeTransactBtn">
+                        ✕
+                    </button>
+                    
+                    </header>
+                    <div class="transactBody"></div>               
+                </main>
+            `
+        return transactDiv;
+    }
+
+
+
+    async function createTransaction(){
+
+        let transaction_button =
+            document.querySelector(".transaction_button");
+
+        let containerDiv =
+            document.querySelector(".dash_butts_wrapper");
+
+
+        transaction_button.addEventListener("click",async (e)=>{
+
+            let existing =
+                containerDiv.querySelector(".transactionDiv");
+
+
+            if(existing){
+
+
+                existing.classList.remove("show");
+
+                existing.addEventListener("transitionend",()=>{
+                    transaction_button.classList.remove("active");
+                    existing.remove();
+                },{once:true});
+
+                return;
+            }
+
+            let div = TransactionTemplate();
+
+            containerDiv.prepend(div);
+            transaction_button.classList.add("active");
+
+            requestAnimationFrame(()=>{
+                div.classList.add("show");
+            });
+
+            let removeDiv = containerDiv.querySelector(".closeTransactBtn");
+            let transactBody = containerDiv.querySelector(".transactBody");
+
+            removeDiv.addEventListener("click",()=>{
+                transaction_button.click();
+            });
+
+            let cardsContainer = await all_transaction();
+            transactBody.append(cardsContainer);
+
+        });
+
+    }
+
+
+    function field(label, value, prefix = "") {
+
+        const text = String(value ?? "").trim();
+
+        if (text === "" || text === "0" || text === "0.00") {
+            return "";
+        }
+
+        return `
+        <tr>
+            <th>${label}:</th>
+            <td>${prefix}${text}</td>
+        </tr>
+    `;
+    }
+
+
+    function createTransactionCard(item){
+        console.log(item);
+
+        return `
+        <div class="transaction-card">
+
+            <div class="head">
+
+                <div class="transaction_card_title_wrapper">
+                    
+                    <nav class="title_status_wrapper">
+                        <h3 class="transaction_title"><span>${item.icon}</span> ${item.title}</h3>
+                        <nav class="status">${item.status}</nav>
+                    </nav>
+                    
+                    <small>${item.message}</small>
+                </div>
+
+             
+
+            </div>
+
+       <div class="body">
+            <table class="transaction-table">
+                <tbody>
+                    ${field("Coin", item.coin)}
+                    ${field("Quantity", item.quantity)}
+                    ${field("Price", item.price_per_coin, "$")}
+                    ${field("Amount", item.amount, "$")}
+                    ${field("Fee", item.fee, "$")}
+                </tbody>
+            </table>
+       </div>
+
+            <div class="footer">
+
+                ${timeAgo(item.created_at)}
+
+            </div>
+
+        </div>
+    `;
+    }
+
+
+    async function all_transaction() {
+        let transaction_Card_Container = document.createElement("div");
+        transaction_Card_Container.classList.add("transaction_Card_Container");
+
+
+        let response = await fetch(`http://127.0.0.1:8000/api/transactions/`);
+        let data = await response.json();
+
+        if(transactionArr.length > 0){
+            data.unshift(transactionArr[0]);
+        }
+
+        data = [...new Map(data.map(i => [i.id, i])).values()];
+
+        data.forEach(i => {
+            let cards = createTransactionCard(i);
+            // console.log(cards)
+
+            transaction_Card_Container.innerHTML += cards;
+        })
+
+        return transaction_Card_Container;
+    }
+
+    async function transactionCounter(){
+        let transactionCounter = document.querySelector(".transactionCounter");
+        let transactionCounter_wrapper =  document.querySelector(".transactionCounter_wrapper");
+
+        let response = await fetch(`http://127.0.0.1:8000/api/transaction_counter/`);
+        let data = await response.json();
+
+        if (data.count <= 0) {
+            transactionCounter_wrapper.classList.remove("visible");
+            return
+        }
+
+
+        if (transactionCounter) {
+            transactionCounter_wrapper.classList.add("visible");
+            transactionCounter.innerHTML = String(data.count);
+        }
+    }
+
+    transactionCounter()
 
 
 }
